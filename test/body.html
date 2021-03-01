@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scrolly body</title>
+	<link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+
+<nav class="navigation fixed" id="nav">
+	<ul>
+		<li class="blue"><a href="javascript:void(0)" data-scrolly-target="#page1" class="active">Page 1</a></li>
+		<li class="green"><a href="javascript:void(0)" data-scrolly-target="#page2">Page 2</a></li>
+		<li class="orange"><a href="javascript:void(0)" data-scrolly-target="#page3">Page 3</a></li>
+		<li class="yellow"><a href="javascript:void(0)" data-scrolly-target="#page4">Page 4</a></li>
+	</ul>
+</nav>
+
+<div class="page blue" id="page1">
+	<h1>Page 1</h1>
+</div>
+<div class="page green" id="page2">
+	<h1>Page 2</h1>
+</div>
+<div class="page orange" id="page3">
+	<h1>Page 3</h1>
+</div>
+<div class="page yellow" id="page4">
+	<h1>Page 4</h1>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../src/scrolly.js"></script>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$("#nav").scrolly({
+			offset   : -75 //heigth off the fixed navigation
+		});
+	})
+</script>
+</body>
+</html>
