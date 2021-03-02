@@ -63,10 +63,25 @@ Include offset during calculation
 *default: 0*
 
 
-### container (string or jquery object) 
-
-Scrollable target
+### container (string or jquery object)
 *default: window*
-
+Scrollable target container <br/>
+target elements must be first child of container, like so
+```html
+<div class="container">
+    <div id="page1">...content</div>
+    <div id="page2">...content</div>
+</div>
+```
+not like this
+```html
+<div class="container">
+    <div class="inner">
+        <div id="page1">...content</div>
+        <div id="page2">...content</div>
+    </div>
+</div>
+```
+And container css position should be relative
 
 

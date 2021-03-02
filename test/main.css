@@ -80,6 +80,7 @@ body.vertical .navigation ul li{
     height: 300px;
     overflow: auto;
     background: gray;
+    position: relative;
 }
 
 .page {

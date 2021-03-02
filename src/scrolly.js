@@ -4,7 +4,7 @@
  * Licensed under the MIT license
  */
 
-;(function ($, window, document, undefined)
+;(function ($)
 {
 	$.fn.extend({
 		
@@ -24,17 +24,19 @@
 				console.log(...arguments);
 			}
 			
-			options        = $.extend({}, defaults, options);
-			options.offset = parseInt(options.offset);
-			let $container = $(options.container);
+			options           = $.extend({}, defaults, options);
+			options.offset    = parseInt(options.offset);
+			let $container    = $(options.container);
+			let $scrollTarget = options.container === window ? $('html, body') : $container;
 			let $nav,
 			    $target;
-			let $links     = $(this).find('a');
+			let $links        = $(this).find('a');
 			
 			let getTargetTop = function ($target)
 			{
-				let ttop = options.container === window ? $target.offset().top : $target.position().top - $container.offset().top + $container.scrollTop();
-				return ttop + options.offset;
+				let ttop = options.container === window ? $target.offset().top : $container.scrollTop() + $target.position().top;
+				ttop += options.offset;
+				return ttop;
 			}
 			
 			let activateTarget = function ($nav, $target, addHash)
@@ -70,6 +72,10 @@
 					{
 						let $nav    = $(this);
 						let $target = $($nav.data('scrolly-target'));
+						if (!$target.parent().is($scrollTarget))
+						{
+							console.error("Scrolly says: in order to work propely scrollable target mu be first child of contaner:", $scrollTarget);
+						}
 						if ($target.length > 0)
 						{
 							let scrollTop = getTargetTop($target);
@@ -91,16 +97,23 @@
 								{
 									animOptins = $.extend({}, options.animate);
 								}
-								let scrollTarget = options.container === window ? $('html, body') : $container;
-								scrollTarget.stop().animate({scrollTop: scrollTop}, animOptins, function ()
+								animOptins.done = function ()
 								{
-									navclicked = false;
-								});
+									window.setTimeout(function ()
+									{
+										navclicked = false;
+									}, 30);
+								};
+								$scrollTarget.stop().animate({scrollTop: scrollTop}, animOptins);
 							}
 							else
 							{
-								$container.scrollTop(scrollTop);
-								navclicked = false;
+								$scrollTarget.scrollTop(scrollTop);
+								//in some weird cases navclicked was set to true before $container.on('scroll.scrolly') trigger
+								window.setTimeout(function ()
+								{
+									navclicked = false;
+								}, 30);
 							}
 							activateTarget($nav, $target);
 							
@@ -139,4 +152,4 @@
 			});
 		}
 	});
-})(jQuery, window, document, undefined);
+})(jQuery);
