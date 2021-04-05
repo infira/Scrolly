@@ -24,13 +24,14 @@
 				console.log(...arguments);
 			}
 			
-			options           = $.extend({}, defaults, options);
-			options.offset    = parseInt(options.offset);
-			let $container    = $(options.container);
-			let $scrollTarget = options.container === window ? $('html, body') : $container;
+			options                     = $.extend({}, defaults, options);
+			options.offset              = parseInt(options.offset);
+			let $container              = $(options.container);
+			let $scrollTarget           = options.container === window ? $('html, body') : $container;
 			let $nav,
 			    $target;
-			let $links        = $(this).find('a');
+			let $links                  = $(this).find('a');
+			let userTriggeredHashChange = false;
 			
 			let getTargetTop = function ($target)
 			{
@@ -55,7 +56,15 @@
 				
 				if (addHash === true && options.useLinkHash === true)
 				{
-					window.location.hash = $nav.attr('href').replace('#', '');
+					userTriggeredHashChange = true;
+				}
+				if (options.useLinkHash === true)
+				{
+					let sp = $nav.attr('href').split('#');
+					if (sp && sp[1])
+					{
+						window.location.hash = sp[1];
+					}
 				}
 			}
 			
@@ -115,7 +124,7 @@
 									navclicked = false;
 								}, 30);
 							}
-							activateTarget($nav, $target);
+							activateTarget($nav, $target, true);
 							
 							if (options.useLinkHash === false)
 							{
@@ -150,6 +159,28 @@
 					}
 				});
 			});
+			
+			if (options.useLinkHash)
+			{
+				$(window).on('hashchange.scrolly', function ()
+				{
+					if (userTriggeredHashChange === true)
+					{
+						return false;
+					}
+					userTriggeredHashChange = false;
+					let $navItem            = $links.filter('[href*="' + window.location.hash.toString() + '"]');
+					if ($navItem.length)
+					{
+						$navItem.trigger("click.scrolly");
+					}
+				});
+				
+				if (window.location.hash.toString())
+				{
+					$(window).trigger('hashchange.scrolly');
+				}
+			}
 		}
 	});
 })(jQuery);

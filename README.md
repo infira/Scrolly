@@ -84,4 +84,16 @@ not like this
 ```
 And container css position should be relative
 
+### navActiveClass (string)
+What class to add to nav item on active state
+
+### targetActiveClass (string)
+What class to add to scrollable item on active state
+
+### useLinkHash (boolean)
+What class to add to scrollable item on active state
+
+### useLinkHash (boolean)
+When true then url hashes is added to url 
+
 
