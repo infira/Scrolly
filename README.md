@@ -1,14 +1,14 @@
 # Scrolly
 
-docs needed
-
+A small jQuery plugin keep synced active states navigation on content sections while scrolling
 ## Requirements
 
 jQuery some kind
 
 ## Demo
 
-Check out demo here .... paste link here 
+Horisontal https://codepen.io/gen-taliaru/pen/jOywzxd
+Vertical https://codepen.io/gen-taliaru/pen/bGgRvPz
 
 ## How to use
 
