@@ -5,7 +5,7 @@ html, body {
 body {
     padding-top: 75px;
 }
-body.vertical
+.vertical
 {
     padding: 0;
     padding-left: 200px;
@@ -20,7 +20,7 @@ body.vertical
     position: fixed;
     top: 0;
 }
-body.vertical .navigation.fixed{
+.vertical .navigation.fixed{
     top:0;
     left:0;
     width: 200px;
@@ -39,7 +39,7 @@ body.vertical .navigation.fixed{
     margin: 0 0 0 30px;
     padding: 0;
 }
-body.vertical .navigation ul li{
+.vertical .navigation ul li{
     display: block;
     width: 100%;
     height: 40px;
